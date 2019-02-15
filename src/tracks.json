@@ -1,0 +1,18 @@
+
+{
+    "album": "Nursery Rhymin",
+    "artist": "Mother Goose",
+    "artwork": "https://storage.googleapis.com/album-images-nunki-music/mgoose.jpg",
+    "tracks": [
+        {
+            "id": 1,
+            "title": "Mary Had a Little Lamb",
+            "duration": "4:41"
+        },
+        {
+            "id": 2,
+            "title": "Youth",
+            "duration": "3:51"
+        }
+    ]
+}

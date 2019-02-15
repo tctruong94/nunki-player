@@ -1,32 +1,18 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import Breadcrumb from "../components/Breadcrumb";
+import Navigation from "../components/Navigation";
+import '../css/DashboardContainer.css'
 
 class DashboardContainer extends Component {
   render() {
-    // console.log("this.state: ", this.state);
-    // if (!this.state) {
-    //     console.log("loading...")
-    //     return (<div>Loading...</div>);
-    // }
 
     return (
       <div>
-        <Breadcrumb>
-          <Link to="/">Home</Link>
-          <h5>((username)) is logged in</h5>
-          <button type="button" class="btn btn-warning pull-right" ng-click="logout()">
-            Logout
-          </button>
-        </Breadcrumb>
+        <Navigation>
+]        </Navigation>
         <div>
           <div class="jumbotron">
-            <h2>Welcome to ((username))'s Nunki player!</h2>
-            <br />
-            <h4>
-              Search by Name:{" "}
-              <input type="text" class="form-control" ng-model="filter_name" />
-            </h4>
+            <h2 class="welcome">Welcome to ((username))'s Nunki player!</h2>
+            <h2 class="welcome">Ninki is music streaming web application</h2>
           </div>
         </div>
       </div>

@@ -1,20 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Breadcrumb from "../components/Breadcrumb";
-import Datastore from "@google-cloud/datastore";
+import Navigation from "../components/Navigation";
 
-// const datastore = new Datastore();
-// // [START datastore_retrieve_entities]
-// async function listSongs() {
-//     const query = datastore.createQuery("Song").order("name");
-
-//     const [songs] = await datastore.runQuery(query);
-//     console.log('Songs:');
-//     songs.forEach(song => {
-//         const songKey = song[datastore.KEY];
-//         console.log(songKey.id, song);
-//     });
-// }
 
 class SongsContainer extends Component {
     render() {
@@ -38,9 +25,9 @@ class SongsContainer extends Component {
 
         return (
             <div>
-                <Breadcrumb>
+                <Navigation>
                     <Link to="/">Home</Link>
-                </Breadcrumb>
+                </Navigation>
                 <div>
                     <h2>SONGS!!</h2>
                     <table class="table">

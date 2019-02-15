@@ -1,0 +1,5 @@
+.navbar {background: #1c1a18; border: 0px solid #c5d1e5; display: block;}
+.breadcrumb {font-size: 24px; color: white;}
+.breadcrumb a {color: #bccbe5;}
+.breadcrumb a:hover {color: #ffffff;}
+.breadcrumb>.active {color: #ffffff;}
