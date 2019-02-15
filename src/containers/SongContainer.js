@@ -1,17 +1,9 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
 
 
 class SongsContainer extends Component {
     render() {
-        // console.log("this.state: ", this.state);
-        // if (!this.state) {
-        //     console.log("loading...")
-        //     return (<div>Loading...</div>);
-        // }
-        // listSongs()
-        // console.log(listSongs());
         const Emoji = props => (
             <span
                 className="emoji"
@@ -26,7 +18,6 @@ class SongsContainer extends Component {
         return (
             <div>
                 <Navigation>
-                    <Link to="/">Home</Link>
                 </Navigation>
                 <div>
                     <h2>SONGS!!</h2>

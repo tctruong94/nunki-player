@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Controls from "../components/Controls";
 import TrackList from "../components/TrackList";
-import Breadcrumb from "../components/Navigation";
-import { Link } from "react-router-dom";
+import Navigation from "../components/Navigation";
 // import { fetchObjects } from "../actions";
 import data from "../tracks.json";
 
@@ -76,15 +75,8 @@ class StreamContainer extends Component {
         
         return (
             <div class="row">
-                <div>
-                <Breadcrumb>
-                    <Link to="/">Home</Link>
-                    <h5>((username)) is logged in</h5>
-                    <button type="button" class="btn btn-warning pull-right" ng-click="logout()">
-                        Logout
-                    </button>
-                </Breadcrumb>
-                </div>
+                <Navigation>
+                </Navigation>
                 <div class="col-md-6 col-md-offset-3">
                     <div className="App">
                         <div
