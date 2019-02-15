@@ -19,7 +19,8 @@ const Navigation = () => {
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="/">Home</a></li>
-                    <li class="active"><a href="/stream">Stream</a></li>
+                    <li><a href="/stream">Stream</a></li>
+                    <li><a href="/songs">Songs</a></li>
                 </ul>
                 <form class="navbar-form navbar-left">
                     <div class="form-group">
