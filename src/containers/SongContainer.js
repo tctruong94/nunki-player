@@ -1,8 +1,16 @@
 import React, { Component } from "react";
 import Navigation from "../components/Navigation";
-
+import data from "../tracks.json";
 
 class SongsContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { tracks: [] }
+    }
+    componentDidMount() {
+        //fetch data for a track here (i.e. from Spotify or Soundcloud)s
+        this.setState({ tracks: data.tracks });
+    }
     render() {
         const Emoji = props => (
             <span
@@ -20,7 +28,6 @@ class SongsContainer extends Component {
                 <Navigation>
                 </Navigation>
                 <div>
-                    <h2>SONGS!!</h2>
                     <table class="table">
                         <thead>
                             <tr>
@@ -28,7 +35,6 @@ class SongsContainer extends Component {
                                 <th><span class="glyphicon glyphicon-headphones"></span> Title</th>
                                 <th><span class="glyphicon glyphicon-user"></span> Artist</th>
                                 <th><span class="glyphicon glyphicon-list-alt"></span> Album</th>
-                                <th><span class="glyphicon glyphicon-calendar"></span> Date</th>
                                 <th><span class="glyphicon glyphicon-time"></span> Duration</th>
                                 <th><span class="glyphicon glyphicon-th-list"></span> Playlist</th>
                             </tr>
@@ -36,11 +42,10 @@ class SongsContainer extends Component {
                         <tbody>
                             <tr ng-repeat="waitlist in waitlists | filter:filter_name">
                                 <td><button class="btn btn-default" type="submit" ng-click="send_text()"><Emoji symbol="❤️" /></button></td>
-                                <td>song.title</td>
-                                <td>song.artist</td>
-                                <td>song.album</td>
-                                <td>song.date</td>
-                                <td>song.duration</td>
+                                <td></td>
+                                <td>{data.artist}</td>
+                                <td>{data.album}</td>
+                                <td></td>
                                 <td>
                                     <select class="form-control" ng-model='waitlist.status' ng-change='change_status(waitlist._id, waitlist.status)'>
                                         <option ng-repeat='status in statuses track by $index'>Add to playlist</option>
