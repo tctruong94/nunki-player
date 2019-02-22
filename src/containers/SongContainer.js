@@ -1,17 +1,22 @@
+import _ from 'lodash';
 import React, { Component } from "react";
 import Navigation from "../components/Navigation";
-import data from "../tracks.json";
+// import data from "../tracks.json";
+import { fetchSongs } from '../actions';
 
 class SongsContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = { tracks: [] }
+        this.state = { songs: null }
     }
+
     componentDidMount() {
-        //fetch data for a track here (i.e. from Spotify or Soundcloud)s
-        this.setState({ tracks: data.tracks });
+        fetchSongs().then(data => {
+            this.setState({ songs: data.data.items })
+        });
     }
-    render() {
+
+    renderListItem(song) {
         const Emoji = props => (
             <span
                 className="emoji"
@@ -22,6 +27,35 @@ class SongsContainer extends Component {
                 {props.symbol}
             </span>
         )
+
+        return (
+            <tr ng-repeat="waitlist in waitlists | filter:filter_name">
+                <td><button class="btn btn-default" type="submit" ng-click="send_text()"><Emoji symbol="❤️" /></button></td>
+                <td>{song.name}</td>
+                <td>{song.artist}</td>
+                <td>{song.album}</td>
+                <td>{song.duration}</td>
+                <td>
+                    <select class="form-control" ng-model='waitlist.status' ng-change='change_status(waitlist._id, waitlist.status)'>
+                        <option ng-repeat='status in statuses track by $index'>Add to playlist</option>
+                    </select>
+                </td>
+            </tr>
+
+        );
+    }
+
+    renderList() {
+        return _.map(this.state.songs, this.renderListItem.bind(this));
+    }
+
+
+    render() {
+        console.log("this.state.songs: ", this.state.songs);
+        if (!this.state.songs) {
+            console.log("loading...")
+            return (<div>Loading...</div>);
+        }
 
         return (
             <div>
@@ -40,21 +74,11 @@ class SongsContainer extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="waitlist in waitlists | filter:filter_name">
-                                <td><button class="btn btn-default" type="submit" ng-click="send_text()"><Emoji symbol="❤️" /></button></td>
-                                <td></td>
-                                <td>{data.artist}</td>
-                                <td>{data.album}</td>
-                                <td></td>
-                                <td>
-                                    <select class="form-control" ng-model='waitlist.status' ng-change='change_status(waitlist._id, waitlist.status)'>
-                                        <option ng-repeat='status in statuses track by $index'>Add to playlist</option>
-                                    </select>
-                                </td>
-                            </tr>
+                            {this.renderList()}
                         </tbody>
                     </table>
                 </div>
+
             </div>
         );
     }
