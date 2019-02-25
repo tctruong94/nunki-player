@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import React, { Component } from "react";
 import Navigation from "../components/Navigation";
-// import data from "../tracks.json";
 import { fetchSongs } from '../actions';
+import { convertMS } from '../helpers';
 
 class SongsContainer extends Component {
     constructor(props) {
@@ -29,14 +29,14 @@ class SongsContainer extends Component {
         )
 
         return (
-            <tr ng-repeat="waitlist in waitlists | filter:filter_name">
-                <td><button class="btn btn-default" type="submit" ng-click="send_text()"><Emoji symbol="❤️" /></button></td>
+            <tr>
+                <td><button className="btn btn-default" type="submit" ng-click="send_text()"><Emoji symbol="❤️" /></button></td>
                 <td>{song.name}</td>
                 <td>{song.artist}</td>
                 <td>{song.album}</td>
-                <td>{song.duration}</td>
+                <td>{convertMS(song.duration)}</td>
                 <td>
-                    <select class="form-control" ng-model='waitlist.status' ng-change='change_status(waitlist._id, waitlist.status)'>
+                    <select className="form-control">
                         <option ng-repeat='status in statuses track by $index'>Add to playlist</option>
                     </select>
                 </td>
@@ -62,15 +62,15 @@ class SongsContainer extends Component {
                 <Navigation>
                 </Navigation>
                 <div>
-                    <table class="table">
+                    <table className="table">
                         <thead>
                             <tr>
-                                <th><span class="glyphicon glyphicon-heart"></span> Favorite</th>
-                                <th><span class="glyphicon glyphicon-headphones"></span> Title</th>
-                                <th><span class="glyphicon glyphicon-user"></span> Artist</th>
-                                <th><span class="glyphicon glyphicon-list-alt"></span> Album</th>
-                                <th><span class="glyphicon glyphicon-time"></span> Duration</th>
-                                <th><span class="glyphicon glyphicon-th-list"></span> Playlist</th>
+                                <th><span className="glyphicon glyphicon-heart"></span> Favorite</th>
+                                <th><span className="glyphicon glyphicon-headphones"></span> Title</th>
+                                <th><span className="glyphicon glyphicon-user"></span> Artist</th>
+                                <th><span className="glyphicon glyphicon-list-alt"></span> Album</th>
+                                <th><span className="glyphicon glyphicon-time"></span> Duration</th>
+                                <th><span className="glyphicon glyphicon-th-list"></span> Playlist</th>
                             </tr>
                         </thead>
                         <tbody>

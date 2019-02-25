@@ -2,20 +2,26 @@ import React, { Component } from 'react';
 import Controls from "../components/Controls";
 import TrackList from "../components/TrackList";
 import Navigation from "../components/Navigation";
-// import { fetchObjects } from "../actions";
-import data from "../tracks.json";
+import { fetchSongs } from '../actions';
+// import data from "../tracks.json";
 
 class StreamContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
             playing: false,
-            currentTrackIndex: 0
+            currentTrackIndex: 0,
+            songs: []
         };
         this.handleClick = this.handleClick.bind(this);
         this.playAudio = this.playAudio.bind(this);
         this.pauseAudio = this.pauseAudio.bind(this);
         this.selectTrackNumber = this.selectTrackNumber.bind(this);
+    }
+    componentDidMount() {
+        fetchSongs().then(data => {
+            this.setState({ songs: data.data.items })
+        });
     }
 
     playAudio() {
@@ -33,8 +39,9 @@ class StreamContainer extends Component {
             case "play":
                 this.setState((state, props) => {
                     let currentTrackIndex = state.currentTrackIndex;
+                    console.log("currentTrackIndex :", currentTrackIndex)
                     if (currentTrackIndex === 0) {
-                        currentTrackIndex = 1;
+                        currentTrackIndex = 0;
                     }
                     return {
                         playing: true,
@@ -48,7 +55,8 @@ class StreamContainer extends Component {
             case "prev":
                 this.setState((state, props) => {
                     let currentIndex = state.currentTrackIndex - 1;
-                    if (currentIndex <= 0) {
+                    console.log("PRE")
+                    if (currentIndex <= -1) {
                         return null;
                     } else {
                         return { playing: true, currentTrackIndex: currentIndex };
@@ -58,7 +66,7 @@ class StreamContainer extends Component {
             case "next":
                 this.setState((state, props) => {
                     let currentIndex = state.currentTrackIndex + 1;
-                    if (currentIndex > data.tracks.length) {
+                    if (currentIndex > state.songs.length) {
                         return null;
                     } else {
                         return { playing: true, currentTrackIndex: currentIndex };
@@ -70,21 +78,53 @@ class StreamContainer extends Component {
         }
     }
 
+
     render() {
-        console.log("loading...");
-        
+        // console.log("this.state.songs: ", this.state.songs);
+        if (!this.state.songs) {
+            console.log("loading...")
+            return (<div>Loading...</div>);
+        }
+        if (this.state.songs[this.state.currentTrackIndex] !== undefined) {
+            console.log("SOURCE2 ", this.state.songs[this.state.currentTrackIndex].source);
+            return (
+                <div className="row">
+                    <Navigation>
+                    </Navigation>
+                    <div className="col-md-6 col-md-offset-3">
+                        <div className="App">
+                            <div
+                                className="Artwork"
+                                style={{ backgroundImage: "url(" + this.state.songs[this.state.currentTrackIndex].artwork + ")" }}
+                            >
+                                <Controls onClick={this.handleClick} playing={this.state.playing} />
+                                <audio ref={(audio) => { this.audioElement = audio }} src={this.state.songs[this.state.currentTrackIndex].source} />
+                            </div>
+                            <TrackList
+                                currentTrackIndex={this.state.currentTrackIndex}
+                                selectTrackNumber={this.selectTrackNumber}
+                            />
+                            <div className="nunkiplayer">
+                                Nunki Player
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
         return (
-            <div class="row">
+            <div className="row">
                 <Navigation>
                 </Navigation>
-                <div class="col-md-6 col-md-offset-3">
+                <div className="col-md-6 col-md-offset-3">
                     <div className="App">
                         <div
                             className="Artwork"
-                            style={{ backgroundImage: "url(" + data.artwork + ")" }}
+                            // style={{ backgroundImage: "url(" + this.state.songs[this.state.currentTrackIndex].artwork + ")" }}
                         >
                             <Controls onClick={this.handleClick} playing={this.state.playing} />
-                            <audio ref={(audio) => { this.audioElement = audio }} src={"/songs/" + this.state.currentTrackIndex + ".mp3"} />
+                            {/* <audio ref={(audio) => { this.audioElement = audio }} src={this.state.songs[this.state.currentTrackIndex].source} /> */}
                         </div>
                         <TrackList
                             currentTrackIndex={this.state.currentTrackIndex}
@@ -92,11 +132,12 @@ class StreamContainer extends Component {
                         />
                         <div className="nunkiplayer">
                             Nunki Player
-                        </div>
+                            </div>
                     </div>
                 </div>
             </div>
         );
+
     }
 }
 

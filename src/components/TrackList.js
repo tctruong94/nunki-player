@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import data from "../tracks.json";
+import { fetchSongs } from '../actions';
+import { convertMS } from '../helpers';
 
 class TrackList extends Component {
     constructor(props) {
         super(props);
-        this.state = { tracks: [] }
+        this.state = { songs: [] }
         this.renderListItem = this.renderListItem.bind(this);
     }
     componentDidUpdate() {
@@ -22,33 +23,34 @@ class TrackList extends Component {
         }
     }
     componentDidMount() {
-        //fetch data for a track here (i.e. from Spotify or Soundcloud)s
-        this.setState({ tracks: data.tracks });
+        fetchSongs().then(data => {
+            this.setState({ songs: data.data.items })
+        });
     }
 
-    renderListItem(track, i) {
-        let trackClass = this.props.currentTrackIndex === track.id
+    renderListItem(song, i) {
+        let trackClass = this.props.currentTrackIndex === i
             ? "selected"
             : "";
         return (
             <li
-                key={track.id}
+                key={i}
                 className={trackClass}
                 ref={cur => {
-                    if (this.props.currentTrackIndex === track.id) {
+                    if (this.props.currentTrackIndex === i) {
                         this.activeTrack = cur;
                     }
                 }}
-                onClick={() => { this.props.selectTrackNumber(track.id) }}
+                onClick={() => { this.props.selectTrackNumber(i) }}
             >
-                <div className="number">{track.id}</div>
-                <div className="title">{track.title}</div>
-                <div className="duration">{track.duration}</div>
+                <div className="number">{i}</div>
+                <div className="title">{song.name}</div>
+                <div className="duration">{convertMS(song.duration)}</div>
             </li>
         );
     }
     render() {
-        let tracks = this.state.tracks.map(this.renderListItem);
+        let songs = this.state.songs.map(this.renderListItem);
         return (
             <ul
                 className="TrackList"
@@ -56,7 +58,7 @@ class TrackList extends Component {
                     this.trackList = input;
                 }}
             >
-                {tracks}
+                {songs}
             </ul>
         );
     }

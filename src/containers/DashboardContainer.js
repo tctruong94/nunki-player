@@ -8,7 +8,7 @@ class DashboardContainer extends Component {
     return (
       <div>
         <Navigation>
-]        </Navigation>
+        </Navigation>
         <div>
           <div class="jumbotron">
             <h2 class="welcome">Welcome to ((username))'s Nunki player!</h2>

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 class Controls extends Component {
     render() {
-        console.log("CONTROLS??");
         return (
             <div className="Controls">
                 <i
