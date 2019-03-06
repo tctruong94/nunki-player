@@ -1,7 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from "react";
 import Navigation from "../components/Navigation";
+import PostNewPlaylist from "../components/PostNewPlaylist";
 import { fetchPlaylists } from '../actions';
+
 
 class PlaylistsContainer extends Component {
     constructor(props) {
@@ -68,7 +70,8 @@ class PlaylistsContainer extends Component {
                         </tbody>
                     </table>
                 </div>
-
+              <PostNewPlaylist>
+              </PostNewPlaylist>
             </div>
         );
     }
