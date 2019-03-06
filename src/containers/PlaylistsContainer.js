@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Navigation from "../components/Navigation";
 import PostNewPlaylist from "../components/PostNewPlaylist";
 import { fetchPlaylists } from '../actions';
+import { deletePlaylistById } from '../actions';
 
 
 class PlaylistsContainer extends Component {
@@ -15,6 +16,13 @@ class PlaylistsContainer extends Component {
         fetchPlaylists().then(data => {
             console.log(data);
             this.setState({ playlists: data.data.items })
+        });
+    }
+
+    deleteListItem(playlistId) {
+        deletePlaylistById(playlistId).then((response) => {
+          console.log(response);
+          window.location.reload(false);
         });
     }
 
@@ -33,8 +41,9 @@ class PlaylistsContainer extends Component {
         return (
             <tr>
                 <td><button className="btn btn-default" type="submit" ng-click="send_text()"><Emoji symbol="❤️" /></button></td>
-                <td>{playlist.name}</td>
+                <td>{playlist.name + '  (' + playlist.songs.length + ' songs)' }</td>
                 <td><a href={"/playlists/" + playlist.id}>View/Edit</a></td>
+                <td><button onClick={this.deleteListItem.bind(this, playlist.id)}>Delete</button></td>
             </tr>
 
         );
@@ -63,6 +72,7 @@ class PlaylistsContainer extends Component {
                                 <th><span className="glyphicon glyphicon-heart"></span> Favorite</th>
                                 <th><span className="glyphicon glyphicon-list-alt"></span> Playlist Name</th>
                                 <th><span className="glyphicon glyphicon-music"></span> Songs</th>
+                                <th><span className="glyphicon glyphicon-remove"></span> Delete</th>
                             </tr>
                         </thead>
                         <tbody>
