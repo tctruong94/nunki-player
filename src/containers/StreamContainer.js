@@ -3,7 +3,6 @@ import Controls from "../components/Controls";
 import TrackList from "../components/TrackList";
 import Navigation from "../components/Navigation";
 import { fetchSongs } from '../actions';
-// import data from "../tracks.json";
 
 class StreamContainer extends Component {
     constructor(props) {
