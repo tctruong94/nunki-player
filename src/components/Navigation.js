@@ -21,6 +21,7 @@ const Navigation = () => {
                     <li><a href="/">Home</a></li>
                     <li><a href="/stream">Stream</a></li>
                     <li><a href="/songs">Songs</a></li>
+                    <li><a href="/playlists">Playlists</a></li>
                 </ul>
                 <form className="navbar-form navbar-left">
                     <div className="form-group">

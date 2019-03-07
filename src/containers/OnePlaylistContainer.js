@@ -1,22 +1,26 @@
 import _ from 'lodash';
 import React, { Component } from "react";
 import Navigation from "../components/Navigation";
-import { fetchSongs } from '../actions';
+import { fetchPlaylistById } from '../actions';
+import { fetchSongById } from '../actions';
+import { fetchPlaylists } from '../actions';
 import { convertMS } from '../helpers';
 
-class SongsContainer extends Component {
+class OnePlaylistContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = { songs: null }
+        this.state = { playlistSongs: null }
+        this.playlistId = this.props.location.pathname.split('/')[2];
     }
 
     componentDidMount() {
-        fetchSongs().then(data => {
-            this.setState({ songs: data.data.items })
+        fetchPlaylistById(this.playlistId).then(data => {
+            this.setState({ playlistSongs: data.data[0].songs })
+            console.log(this); 
         });
     }
 
-    renderListItem(song) {
+    renderListItem(playlistSong) {
         const Emoji = props => (
             <span
                 className="emoji"
@@ -27,32 +31,27 @@ class SongsContainer extends Component {
                 {props.symbol}
             </span>
         )
-
         return (
             <tr>
-                <td><button className="btn btn-default" type="submit" ng-click="send_text()"><Emoji symbol="❤️" /></button></td>
-                <td>{song.name}</td>
-                <td>{song.artist}</td>
-                <td>{song.album}</td>
-                <td>{convertMS(song.duration)}</td>
-                <td>
-                    <select className="form-control">
-                        <option ng-repeat='status in statuses track by $index'>Add to playlist</option>
-                    </select>
-                </td>
+                <td>{playlistSong.order}</td>
+                <td>{playlistSong.songInfo.name}</td>
+                <td>{playlistSong.songInfo.artist}</td>
+                <td>{playlistSong.songInfo.album}</td>
+                <td>{convertMS(playlistSong.songInfo.duration)}</td>
             </tr>
-
-        );
+              );
     }
 
     renderList() {
-        return _.map(this.state.songs, this.renderListItem.bind(this));
+        console.log("meow");
+        console.log( _.map(this.state.playlistSongs, this.renderListItem.bind(this)));
+        return _.map(this.state.playlistSongs, this.renderListItem.bind(this));
     }
 
 
     render() {
-        console.log("this.state.songs: ", this.state.songs);
-        if (!this.state.songs) {
+        console.log("this.state.playlistSongs: ", this.state.playlistSongs);
+        if (!this.state.playlistSongs) {
             console.log("loading...")
             return (<div>Loading...</div>);
         }
@@ -65,12 +64,11 @@ class SongsContainer extends Component {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th><span className="glyphicon glyphicon-heart"></span> Favorite</th>
+                                <th><span className="glyphicon glyphicon-sort"></span> Order</th>
                                 <th><span className="glyphicon glyphicon-headphones"></span> Title</th>
                                 <th><span className="glyphicon glyphicon-user"></span> Artist</th>
                                 <th><span className="glyphicon glyphicon-list-alt"></span> Album</th>
                                 <th><span className="glyphicon glyphicon-time"></span> Duration</th>
-                                <th><span className="glyphicon glyphicon-th-list"></span> Playlist</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -84,4 +82,4 @@ class SongsContainer extends Component {
     }
 }
 
-export default SongsContainer;
+export default OnePlaylistContainer;
