@@ -38,3 +38,16 @@ export function postPlaylist(playlistName) {
       console.log(error);
     });
 }
+
+export function uploadSong(name, artist, album, order, duration, source, artwork) {
+    return axios.post('https://nunki-music.appspot.com/songs', {
+        name: name,
+        artist: artist,
+        album: album,
+        order: order,
+        duration: duration,
+        source: source,
+        artwork: artwork
+    });
+}
+
