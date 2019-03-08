@@ -40,13 +40,21 @@ export function postPlaylist(playlistName) {
 }
 
 export function uploadSong(name, artist, album, order, source, artwork) {
-    return axios.post('https://nunki-music.appspot.com/songs', {
-        name: name,
-        artist: artist,
-        album: album,
-        order: order,
-        source: source,
-        artwork: artwork
+    var formData = new FormData();
+    formData.append("source", source);
+    formData.append("artwork", artwork);
+    formData.append("name", name);
+    formData.append("artist", artist);
+    formData.append("album", album);
+    formData.append("order", order);
+    console.log(formData);
+    return axios.post('https://nunki-music.appspot.com/songs', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }).then(function (response) {
+        console.log(response);
+        alert(response);
     });
 }
 
