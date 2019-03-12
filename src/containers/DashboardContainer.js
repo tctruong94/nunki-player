@@ -10,7 +10,7 @@ class DashboardContainer extends Component {
       name: '',
       artist: '',
       album: '',
-      order: 1,
+      order: null,
       source: null,
       artwork: null
     };
@@ -44,63 +44,94 @@ class DashboardContainer extends Component {
   handleSubmit(event) {
     event.preventDefault();
     uploadSong(this.state.name, this.state.artist, this.state.album, this.state.order, this.state.source, this.state.artwork);
+    // this.state = {
+    //   name: '',
+    //   artist: '',
+    //   album: '',
+    //   order: null,
+    //   source: null,
+    //   artwork: null
+    // };
   }
 
 
 
   render() {
-
     return (
       <div>
         <Navigation>
         </Navigation>
         <div>
-          <div class="jumbotron">
-            <h2 class="welcome">Welcome to ((username))'s Nunki player!</h2>
-            <h2 class="welcome">Ninki is music streaming web application</h2>
+          <div className="jumbotron">
+            <h2>Welcome to Nunki music player!</h2>
+            <h2>Ninki is music streaming web application.</h2>
+            <br />
+            <p>From Home, you can add a music file to your steam.</p>
+            <p>From Stream, you can litsen your music anywhere.</p>
+            <p>From Song, you can view and edit your music list.</p>
+            <p>From Playlist, you can edit your music playlist.</p>
           </div>
-        </div>
+          <form className="uploadform" onSubmit={this.handleSubmit}>
+            <p>Add a music to my stream</p>
+            <div className="form-group">
+              <label for="name">Name</label>
+              <br />
+              <br />
+              <div className="input-group">
+                <div className="input-group-addon"><i className="fa fa-music" aria-hidden="true"></i></div>
+                <input name="name" type="text" placeholder="Enter Name of Music" value={this.state.name} onChange={this.handleInputChange} />
+              </div>
+            </div>
+            <div className="form-group">
+              <label for="name">Artist</label>
+              <br />
+              <br />
+              <div className="input-group">
+                <div className="input-group-addon"><i className="fa fa-user" aria-hidden="true"></i></div>
+                <input name="artist" type="text" placeholder="Enter Artist Name" value={this.state.artist} onChange={this.handleInputChange} />
+              </div>
+            </div>
+            <div className="form-group">
+              <label for="name">Album</label>
+              <br />
+              <br />
+              <div className="input-group">
+                <div className="input-group-addon"><i className="fa fa-id-badge" aria-hidden="true"></i></div>
+                <input name="album" type="text" placeholder="Enter Name of Album" value={this.state.album} onChange={this.handleInputChange} />
+              </div>
+            </div>
+            <div className="form-group">
+              <label for="name">Order</label>
+              <br />
+              <br />
+              <div className="input-group">
+                <div className="input-group-addon"><i className="fa fa-folder" aria-hidden="true"></i></div>
+                <input name="order" type="text" placeholder="Enter Order" value={this.state.order} onChange={this.handleInputChange} />
+              </div>
+            </div>
+            <div className="form-group">
+              <label for="name">Source</label>
+              <br />
+              <br />
+              <div className="input-group">
+                <div className="input-group-addon"><i className="fa fa-volume-up" aria-hidden="true"></i></div>
+                <input name="source" type="file" onChange={this.handleInputChange} />
+              </div>
+            </div>
+            <div className="form-group">
+              <label for="name">Artwork</label>
+              <br />
+              <br />
+              <div className="input-group">
+                <div className="input-group-addon"><i className="fa fa-file-image" aria-hidden="true"></i></div>
+                <input name="artwork" type="file" onChange={this.handleInputChange} />
+              </div>
 
-        <form onSubmit={this.handleSubmit}>
-          <div class="form-group">
-            <label>
-              Name:
-            <input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} />
-            </label>
-          </div>
-          <div class="form-group">
-            <label>
-              Artist:
-            <input name="artist" type="text" value={this.state.artist} onChange={this.handleInputChange} />
-            </label>
-          </div>
-          <div class="form-group">
-            <label>
-              Album:
-            <input name="album" type="text" value={this.state.album} onChange={this.handleInputChange} />
-            </label>
-          </div>
-          <div class="form-group">
-            <label>
-              Order:
-            <input name="order" type="text" value={this.state.order} onChange={this.handleInputChange} />
-            </label>
-          </div>
-          <div class="form-group">
-            <label>
-              Source:
-            <input name="source" type="file" onChange={this.handleInputChange} />
-            </label>
-          </div>
-          <div class="form-group">
-            <label>
-              Artwork:
-            <input name="artwork" type="file" onChange={this.handleInputChange} />
-            </label>
-            <button type="submit" value="Submit" class="btn btn-default">Submit</button>
-          </div>
-        </form>
-      </div>
+              <button type="submit" value="Submit" className="btn btn-default">Upload</button>
+            </div>
+          </form>
+        </div>
+        </div>
     );
   }
 }

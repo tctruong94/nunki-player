@@ -23,12 +23,7 @@ const Navigation = () => {
                     <li><a href="/songs">Songs</a></li>
                     <li><a href="/playlists">Playlists</a></li>
                 </ul>
-                <form className="navbar-form navbar-left">
-                    <div className="form-group">
-                        <input type="text" className="form-control" placeholder="Search" />
-                    </div>
-                    <button type="submit" className="btn btn-default">Search</button>
-                </form>
+
                 <div className="nav navbar-nav navbar-right">
                     <a href="#">Hello, user!</a>
                     <button type="submit" className="btn btn-default">Log out</button>
