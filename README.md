@@ -1,5 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Server-side API code: https://github.com/tctruong94/nunki-music
+
 ## Available Scripts
 
 In the project directory, you can run:
